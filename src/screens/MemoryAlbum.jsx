@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Camera, Heart, Sparkles, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-// Import all real photos from src/picture dynamically using Vite import.meta.glob
 const imageModules = import.meta.glob('../picture/*.jpg', { eager: true });
 const albumPhotos = Object.values(imageModules).map((mod, index) => ({
   id: index + 1,
@@ -35,34 +34,42 @@ export default function MemoryAlbum({ onNext }) {
 
   return (
     <div className="fixed inset-0 w-screen h-screen flex items-center justify-center p-4 bg-gradient-to-br from-pink-100 via-rose-200 to-purple-200 dark:from-slate-950 dark:via-purple-950 dark:to-slate-900 z-50 animate-fadeIn overflow-y-auto">
-      <div className="glass-card p-8 md:p-12 rounded-3xl shadow-2xl max-w-xl w-full text-center relative my-auto">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-pill text-pink-500 text-xs font-bold uppercase tracking-widest mb-6 shadow-sm">
+      <div className="glass-card p-6 md:p-10 rounded-3xl shadow-2xl max-w-xl w-full text-center relative my-auto">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-pill text-pink-500 text-xs font-bold uppercase tracking-widest mb-4 shadow-sm">
           <Camera className="w-3.5 h-3.5" /> Chapter 4: Memory Album ({currentIndex + 1} / {albumPhotos.length})
         </div>
 
-        {/* Polaroid Scrapbook Card */}
-        <div className="bg-white dark:bg-slate-800 p-6 pb-8 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 mb-8 transform transition-all duration-500 animate-fadeIn">
-          <div className="relative h-64 sm:h-72 rounded-2xl overflow-hidden mb-4 shadow-md bg-slate-900 flex items-center justify-center">
+        {/* Polaroid Scrapbook Card with perfect fit backdrop */}
+        <div className="bg-white dark:bg-slate-800 p-5 pb-6 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 mb-6 transform transition-all duration-500 animate-fadeIn">
+          <div className="relative h-72 sm:h-80 rounded-2xl overflow-hidden mb-4 shadow-inner bg-slate-950 flex items-center justify-center group">
+            {/* Blurred backdrop of the same photo for a gorgeous seamless fit */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center filter blur-xl opacity-50 scale-110 pointer-events-none"
+              style={{ backgroundImage: `url(${photo.url})` }}
+            ></div>
+
+            {/* Main image fully contained without cropping */}
             <img
               src={photo.url}
               alt={photo.title}
-              className="w-full h-full object-cover"
+              className="relative z-10 w-full h-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute top-3 right-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-pink-500 flex items-center gap-1">
+
+            <div className="absolute top-3 right-3 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-pink-500 flex items-center gap-1">
               <Heart className="w-3.5 h-3.5 fill-pink-500" /> Page {currentIndex + 1}
             </div>
           </div>
           <div className="font-['Dancing_Script']">
             <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{photo.title}</h3>
-            <p className="text-base text-slate-600 dark:text-slate-300 font-['Plus_Jakarta_Sans'] mt-1">{photo.caption}</p>
+            <p className="text-base text-slate-600 dark:text-slate-300 font-['Plus_Jakarta_Sans'] mt-0.5">{photo.caption}</p>
           </div>
         </div>
 
         {/* Album Controls */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-6">
           <button
             onClick={prevPhoto}
-            className="px-5 py-3 rounded-2xl glass-card hover:bg-white/80 text-slate-800 dark:text-slate-100 font-bold text-sm shadow-md flex items-center gap-1 transition-all"
+            className="px-5 py-2.5 rounded-2xl glass-card hover:bg-white/80 text-slate-800 dark:text-slate-100 font-bold text-sm shadow-md flex items-center gap-1 transition-all"
           >
             <ChevronLeft className="w-5 h-5" /> Previous
           </button>
@@ -73,7 +80,7 @@ export default function MemoryAlbum({ onNext }) {
 
           <button
             onClick={nextPhoto}
-            className="px-5 py-3 rounded-2xl glass-card hover:bg-white/80 text-slate-800 dark:text-slate-100 font-bold text-sm shadow-md flex items-center gap-1 transition-all"
+            className="px-5 py-2.5 rounded-2xl glass-card hover:bg-white/80 text-slate-800 dark:text-slate-100 font-bold text-sm shadow-md flex items-center gap-1 transition-all"
           >
             Next <ChevronRight className="w-5 h-5" />
           </button>
@@ -82,7 +89,7 @@ export default function MemoryAlbum({ onNext }) {
         <div className="text-center">
           <button
             onClick={handleFinishAlbum}
-            className="px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-base shadow-lg shadow-pink-500/30 transform hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
+            className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-base shadow-lg shadow-pink-500/30 transform hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
           >
             Continue to Cinematic Slideshow <ArrowRight className="w-5 h-5" />
           </button>

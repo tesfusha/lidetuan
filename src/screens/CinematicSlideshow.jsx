@@ -41,13 +41,20 @@ export default function CinematicSlideshow({ onNext }) {
           <Film className="w-3.5 h-3.5" /> Chapter 5: Cinematic Slideshow <Sparkles className="w-3.5 h-3.5" />
         </div>
 
-        <div className="relative h-72 sm:h-96 md:h-[400px] rounded-2xl overflow-hidden shadow-2xl mb-6 group bg-slate-900 flex items-center justify-center">
+        <div className="relative h-72 sm:h-96 md:h-[400px] rounded-2xl overflow-hidden shadow-2xl mb-6 group bg-slate-950 flex items-center justify-center">
+          {/* Blurred backdrop of the same photo for a gorgeous cinematic fit */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center filter blur-2xl opacity-40 scale-110 pointer-events-none"
+            style={{ backgroundImage: `url(${slide.url})` }}
+          ></div>
+
           <img
             src={slide.url}
             alt={slide.title}
-            className="w-full h-full object-cover transition-transform duration-1000 transform hover:scale-105 animate-fadeIn"
+            className="relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-1000 transform group-hover:scale-105 animate-fadeIn"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-10 text-white">
+
+          <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-10 text-white pointer-events-none">
             <div className="flex items-center justify-center gap-2 text-pink-400 text-xs font-bold uppercase tracking-widest mb-2">
               <Heart className="w-4 h-4 fill-pink-400" /> Scene {currentIndex + 1} of {cinematicSlides.length}
             </div>
@@ -61,7 +68,7 @@ export default function CinematicSlideshow({ onNext }) {
 
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-all"
+            className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-all"
           >
             {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
           </button>
