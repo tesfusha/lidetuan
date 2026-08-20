@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Lock, Heart, KeyRound, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { playChimeSound, playPopSound } from '../utils/sound';
 
 export default function PasswordScreen({ onNext }) {
   const [nickname, setNickname] = useState('');
@@ -12,6 +13,7 @@ export default function PasswordScreen({ onNext }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (nickname.toLowerCase().trim() === PASSWORD) {
+      playChimeSound();
       confetti({
         particleCount: 100,
         spread: 80,
@@ -19,6 +21,7 @@ export default function PasswordScreen({ onNext }) {
       });
       onNext();
     } else {
+      playPopSound();
       setError(true);
       setShake(true);
       setTimeout(() => setShake(false), 600);

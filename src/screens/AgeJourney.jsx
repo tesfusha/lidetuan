@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, PartyPopper, ArrowRight, FastForward } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { playPopSound, playChimeSound } from '../utils/sound';
 
 export default function AgeJourney({ onNext }) {
   const [currentNum, setCurrentNum] = useState(1);
@@ -10,6 +11,7 @@ export default function AgeJourney({ onNext }) {
     if (currentNum < 22 && !isCompleted) {
       const timer = setTimeout(() => {
         setCurrentNum((prev) => prev + 1);
+        playPopSound();
         confetti({
           particleCount: 15 + currentNum * 2,
           spread: 50,
@@ -20,6 +22,7 @@ export default function AgeJourney({ onNext }) {
     } else if (currentNum >= 22 && !isCompleted) {
       setIsCompleted(true);
       setCurrentNum(22);
+      playChimeSound();
       const duration = 2 * 1000;
       const end = Date.now() + duration;
       const frame = () => {
@@ -46,6 +49,7 @@ export default function AgeJourney({ onNext }) {
   const handleSkip = () => {
     setIsCompleted(true);
     setCurrentNum(22);
+    playChimeSound();
     confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
   };
 
