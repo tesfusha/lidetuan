@@ -5,11 +5,9 @@ export default function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
 
-  // Audio pointing to local Happy-Birthday-Song.m4a in src/Music or public
+  // Audio pointing to public/music/Happy-Birthday-Song.m4a
   const [audio] = useState(() => {
-    const a = new Audio();
-    // Try loading local Happy-Birthday-Song.m4a, with fallback URL
-    a.src = './src/Music/Happy-Birthday-Song.m4a';
+    const a = new Audio('/music/Happy-Birthday-Song.m4a');
     a.loop = true;
     a.volume = 0.5;
     return a;
@@ -24,12 +22,18 @@ export default function MusicPlayer() {
       audio.pause();
       setIsPlaying(false);
     } else {
-      audio.play().catch(() => {
-        // Fallback audio stream if local file is not yet added by user
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch((err) => {
+        console.warn("Local audio playback failed, trying fallback stream:", err);
+        // Fallback audio stream if local file cannot be played
         audio.src = 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=gentle-piano-111162.mp3';
-        audio.play().catch(() => {});
+        audio.play().then(() => {
+          setIsPlaying(true);
+        }).catch((e) => {
+          console.error("Audio playback blocked or failed:", e);
+        });
       });
-      setIsPlaying(true);
     }
   };
 
