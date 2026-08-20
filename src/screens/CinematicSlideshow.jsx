@@ -2,23 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Film, Sparkles, Heart, ArrowRight, Play, Pause } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-const cinematicSlides = [
-  {
-    url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1400&q=80',
-    title: 'Cinematic Chapter 1',
-    subtitle: 'Where every glance is a timeless memory.'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1400&q=80',
-    title: 'Cinematic Chapter 2',
-    subtitle: 'Surrounded by love, joy, and starlight.'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1400&q=80',
-    title: 'Cinematic Chapter 3',
-    subtitle: 'Walking forward into your most magical year yet.'
-  }
-];
+const imageModules = import.meta.glob('../picture/*.jpg', { eager: true });
+const cinematicSlides = Object.values(imageModules).map((mod, index) => ({
+  url: mod.default,
+  title: `Cinematic Memory #${index + 1}`,
+  subtitle: `Unforgettable moments shared with Tini ❤️`
+}));
 
 export default function CinematicSlideshow({ onNext }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,7 +15,7 @@ export default function CinematicSlideshow({ onNext }) {
 
   useEffect(() => {
     let interval;
-    if (isPlaying) {
+    if (isPlaying && cinematicSlides.length > 0) {
       interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % cinematicSlides.length);
       }, 5000);
@@ -39,7 +28,11 @@ export default function CinematicSlideshow({ onNext }) {
     onNext();
   };
 
-  const slide = cinematicSlides[currentIndex];
+  const slide = cinematicSlides[currentIndex] || {
+    url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1400&q=80',
+    title: 'Cinematic Chapter',
+    subtitle: 'Where every glance is a timeless memory.'
+  };
 
   return (
     <div className="fixed inset-0 w-screen h-screen flex items-center justify-center p-4 bg-gradient-to-br from-pink-100 via-rose-200 to-purple-200 dark:from-slate-950 dark:via-purple-950 dark:to-slate-900 z-50 animate-fadeIn overflow-y-auto">
@@ -48,7 +41,7 @@ export default function CinematicSlideshow({ onNext }) {
           <Film className="w-3.5 h-3.5" /> Chapter 5: Cinematic Slideshow <Sparkles className="w-3.5 h-3.5" />
         </div>
 
-        <div className="relative h-72 sm:h-96 md:h-[400px] rounded-2xl overflow-hidden shadow-2xl mb-6 group">
+        <div className="relative h-72 sm:h-96 md:h-[400px] rounded-2xl overflow-hidden shadow-2xl mb-6 group bg-slate-900 flex items-center justify-center">
           <img
             src={slide.url}
             alt={slide.title}
@@ -91,7 +84,7 @@ export default function CinematicSlideshow({ onNext }) {
             onClick={handleNext}
             className="px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-base shadow-lg shadow-pink-500/30 transform hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
           >
-            Continue to Leave a Memory <ArrowRight className="w-5 h-5" />
+            Continue to Friendship Stats <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       </div>

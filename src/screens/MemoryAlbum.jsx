@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Camera, Heart, Sparkles, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-const albumPhotos = [
-  { id: 1, url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=80', title: 'Memory #1', caption: 'Magical celebrations & radiant smiles' },
-  { id: 2, url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=900&q=80', title: 'Memory #2', caption: 'Sweetest surprises and candles' },
-  { id: 3, url: 'https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80', title: 'Memory #3', caption: 'Your happiness lights up the room' },
-  { id: 4, url: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=900&q=80', title: 'Memory #4', caption: 'Unforgettable adventures together' },
-  { id: 5, url: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=900&q=80', title: 'Memory #5', caption: 'Here is to 22 amazing chapters!' }
-];
+// Import all real photos from src/picture dynamically using Vite import.meta.glob
+const imageModules = import.meta.glob('../picture/*.jpg', { eager: true });
+const albumPhotos = Object.values(imageModules).map((mod, index) => ({
+  id: index + 1,
+  url: mod.default,
+  title: `Memory #${index + 1}`,
+  caption: `Precious moment captured with Tini ❤️`
+}));
 
 export default function MemoryAlbum({ onNext }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,7 +27,11 @@ export default function MemoryAlbum({ onNext }) {
     onNext();
   };
 
-  const photo = albumPhotos[currentIndex];
+  const photo = albumPhotos[currentIndex] || {
+    url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=80',
+    title: 'Memory',
+    caption: 'Precious moment captured with Tini ❤️'
+  };
 
   return (
     <div className="fixed inset-0 w-screen h-screen flex items-center justify-center p-4 bg-gradient-to-br from-pink-100 via-rose-200 to-purple-200 dark:from-slate-950 dark:via-purple-950 dark:to-slate-900 z-50 animate-fadeIn overflow-y-auto">
@@ -37,7 +42,7 @@ export default function MemoryAlbum({ onNext }) {
 
         {/* Polaroid Scrapbook Card */}
         <div className="bg-white dark:bg-slate-800 p-6 pb-8 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 mb-8 transform transition-all duration-500 animate-fadeIn">
-          <div className="relative h-64 sm:h-72 rounded-2xl overflow-hidden mb-4 shadow-md">
+          <div className="relative h-64 sm:h-72 rounded-2xl overflow-hidden mb-4 shadow-md bg-slate-900 flex items-center justify-center">
             <img
               src={photo.url}
               alt={photo.title}
