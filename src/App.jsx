@@ -9,6 +9,7 @@ import CinematicSlideshow from './screens/CinematicSlideshow';
 import FriendshipStats from './screens/FriendshipStats';
 import LeaveMemory from './screens/LeaveMemory';
 import FinalMessage from './screens/FinalMessage';
+import MusicPlayer from './components/MusicPlayer';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState(1);
@@ -36,6 +37,9 @@ export default function App() {
         <div className="balloon bg-rose-400/30" style={{ left: '75%', animationDelay: '1s', animationDuration: '16s' }}></div>
       </div>
 
+      {/* Music Player Widget */}
+      <MusicPlayer />
+
       {/* Dark Mode Toggle Widget */}
       <div className="fixed bottom-6 right-6 z-[100]">
         <button
@@ -56,7 +60,7 @@ export default function App() {
       {currentScreen === 1 && <PasswordScreen onNext={nextScreen} />}
       {currentScreen === 2 && <AgeJourney onNext={nextScreen} />}
       {currentScreen === 3 && <BirthdayLetter onNext={nextScreen} />}
-      {currentScreen === 4 && <MemoryAlbum onNext={nextScreen} />}
+      {currentScreen === 4 && <MemoryAlbum onNext={nextSongOrScreen => nextScreen()} />}
       {currentScreen === 5 && <CinematicSlideshow onNext={nextScreen} />}
       {currentScreen === 6 && <FriendshipStats onNext={nextScreen} />}
       {currentScreen === 7 && <LeaveMemory onNext={nextScreen} />}
