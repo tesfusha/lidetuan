@@ -6,6 +6,7 @@ import AgeJourney from './screens/AgeJourney';
 import BirthdayLetter from './screens/BirthdayLetter';
 import MemoryAlbum from './screens/MemoryAlbum';
 import CinematicSlideshow from './screens/CinematicSlideshow';
+import FriendshipStats from './screens/FriendshipStats';
 import LeaveMemory from './screens/LeaveMemory';
 import FinalMessage from './screens/FinalMessage';
 
@@ -48,7 +49,7 @@ export default function App() {
 
       {/* Chapter Indicator */}
       <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-5 py-2 rounded-full glass-pill shadow-lg flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-pink-600 dark:text-pink-300">
-        <span>Chapter {currentScreen} of 7</span>
+        <span>Chapter {currentScreen} of 8</span>
       </div>
 
       {/* Screen Router / Story Sequence */}
@@ -57,8 +58,9 @@ export default function App() {
       {currentScreen === 3 && <BirthdayLetter onNext={nextScreen} />}
       {currentScreen === 4 && <MemoryAlbum onNext={nextScreen} />}
       {currentScreen === 5 && <CinematicSlideshow onNext={nextScreen} />}
-      {currentScreen === 6 && <LeaveMemory onNext={nextScreen} />}
-      {currentScreen === 7 && <FinalMessage />}
+      {currentScreen === 6 && <FriendshipStats onNext={nextScreen} />}
+      {currentScreen === 7 && <LeaveMemory onNext={nextScreen} />}
+      {currentScreen === 8 && <FinalMessage />}
 
     </div>
   );
