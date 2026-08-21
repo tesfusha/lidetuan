@@ -9,7 +9,6 @@ const allPhotos = Object.values(imageModules).map((mod, index) => ({
   title: `Memory #${index + 1}`
 }));
 
-// Split photos into 3 rows for the multi-row cinematic wall effect
 const row1 = allPhotos.slice(0, 4);
 const row2 = allPhotos.slice(4, 7);
 const row3 = allPhotos.slice(7, 10);
@@ -33,7 +32,7 @@ export default function CinematicSlideshow({ onNext }) {
         </h2>
       </div>
 
-      {/* 3-Row Cinematic Wall Container */}
+      {/* 3-Row Cinematic Wall Container with GPU acceleration */}
       <div className="w-full max-w-6xl h-[55vh] md:h-[60vh] grid grid-cols-3 gap-3 md:gap-6 overflow-hidden relative px-2 my-auto">
         {/* Gradient overlays for cinematic fade effect at top and bottom */}
         <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-pink-100 dark:from-slate-950 to-transparent z-10 pointer-events-none"></div>
@@ -41,14 +40,20 @@ export default function CinematicSlideshow({ onNext }) {
 
         {/* Row 1: Moves UP */}
         <div className="relative overflow-hidden h-full rounded-2xl glass-card p-2">
-          <div className="flex flex-col gap-3 animate-scroll-up">
+          <div className="flex flex-col gap-3 animate-scroll-up transform-gpu will-change-transform">
             {[...row1, ...row1, ...row1].map((photo, idx) => (
               <div key={idx} className="relative h-44 sm:h-56 rounded-xl overflow-hidden shadow-lg bg-slate-950 shrink-0 group">
                 <div 
-                  className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-40 scale-110 pointer-events-none"
+                  className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-40 scale-110 pointer-events-none transform-gpu"
                   style={{ backgroundImage: `url(${photo.url})` }}
                 ></div>
-                <img src={photo.url} alt={photo.title} className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                <img 
+                  src={photo.url} 
+                  alt={photo.title} 
+                  loading="lazy"
+                  decoding="async"
+                  className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 transform-gpu" 
+                />
               </div>
             ))}
           </div>
@@ -56,14 +61,20 @@ export default function CinematicSlideshow({ onNext }) {
 
         {/* Row 2: Moves DOWN */}
         <div className="relative overflow-hidden h-full rounded-2xl glass-card p-2">
-          <div className="flex flex-col gap-3 animate-scroll-down">
+          <div className="flex flex-col gap-3 animate-scroll-down transform-gpu will-change-transform">
             {[...row2, ...row2, ...row2].map((photo, idx) => (
               <div key={idx} className="relative h-44 sm:h-56 rounded-xl overflow-hidden shadow-lg bg-slate-950 shrink-0 group">
                 <div 
-                  className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-40 scale-110 pointer-events-none"
+                  className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-40 scale-110 pointer-events-none transform-gpu"
                   style={{ backgroundImage: `url(${photo.url})` }}
                 ></div>
-                <img src={photo.url} alt={photo.title} className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                <img 
+                  src={photo.url} 
+                  alt={photo.title} 
+                  loading="lazy"
+                  decoding="async"
+                  className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 transform-gpu" 
+                />
               </div>
             ))}
           </div>
@@ -71,14 +82,20 @@ export default function CinematicSlideshow({ onNext }) {
 
         {/* Row 3: Moves UP */}
         <div className="relative overflow-hidden h-full rounded-2xl glass-card p-2">
-          <div className="flex flex-col gap-3 animate-scroll-up" style={{ animationDuration: '28s' }}>
+          <div className="flex flex-col gap-3 animate-scroll-up transform-gpu will-change-transform" style={{ animationDuration: '28s' }}>
             {[...row3, ...row3, ...row3].map((photo, idx) => (
               <div key={idx} className="relative h-44 sm:h-56 rounded-xl overflow-hidden shadow-lg bg-slate-950 shrink-0 group">
                 <div 
-                  className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-40 scale-110 pointer-events-none"
+                  className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-40 scale-110 pointer-events-none transform-gpu"
                   style={{ backgroundImage: `url(${photo.url})` }}
                 ></div>
-                <img src={photo.url} alt={photo.title} className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                <img 
+                  src={photo.url} 
+                  alt={photo.title} 
+                  loading="lazy"
+                  decoding="async"
+                  className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 transform-gpu" 
+                />
               </div>
             ))}
           </div>

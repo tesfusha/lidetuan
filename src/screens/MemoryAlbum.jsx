@@ -39,20 +39,22 @@ export default function MemoryAlbum({ onNext }) {
           <Camera className="w-3.5 h-3.5" /> Chapter 4: Memory Album ({currentIndex + 1} / {albumPhotos.length})
         </div>
 
-        {/* Polaroid Scrapbook Card with perfect fit backdrop */}
+        {/* Polaroid Scrapbook Card with optimized async decoding */}
         <div className="bg-white dark:bg-slate-800 p-5 pb-6 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 mb-6 transform transition-all duration-500 animate-fadeIn">
           <div className="relative h-72 sm:h-80 rounded-2xl overflow-hidden mb-4 shadow-inner bg-slate-950 flex items-center justify-center group">
             {/* Blurred backdrop of the same photo for a gorgeous seamless fit */}
             <div 
-              className="absolute inset-0 bg-cover bg-center filter blur-xl opacity-50 scale-110 pointer-events-none"
+              className="absolute inset-0 bg-cover bg-center filter blur-xl opacity-50 scale-110 pointer-events-none transform-gpu"
               style={{ backgroundImage: `url(${photo.url})` }}
             ></div>
 
-            {/* Main image fully contained without cropping */}
+            {/* Main image fully contained without cropping, lazy loaded and async decoded */}
             <img
               src={photo.url}
               alt={photo.title}
-              className="relative z-10 w-full h-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+              className="relative z-10 w-full h-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105 transform-gpu"
             />
 
             <div className="absolute top-3 right-3 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-pink-500 flex items-center gap-1">
