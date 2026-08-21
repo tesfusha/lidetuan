@@ -1,8 +1,9 @@
 import React from 'react';
-import { Film, Sparkles, Heart, ArrowRight } from 'lucide-react';
+import { Film, Sparkles, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-const imageModules = import.meta.glob('../picture/*.jpg', { eager: true });
+// Import all WebP images from src/picture/Webp dynamically
+const imageModules = import.meta.glob('../picture/Webp/*.webp', { eager: true });
 const allPhotos = Object.values(imageModules).map((mod, index) => ({
   id: index + 1,
   url: mod.default,
@@ -28,7 +29,7 @@ export default function CinematicSlideshow({ onNext }) {
           <Film className="w-3.5 h-3.5" /> Chapter 5: Cinematic Memory Wall <Sparkles className="w-3.5 h-3.5" />
         </div>
         <h2 className="text-2xl md:text-3xl font-extrabold font-['Playfair_Display'] bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-          Tini's Moving Memories ✨
+          Tini's Moving WebP Memories ✨
         </h2>
       </div>
 
