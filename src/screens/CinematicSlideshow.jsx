@@ -1,100 +1,100 @@
-import React, { useState, useEffect } from 'react';
-import { Film, Sparkles, Heart, ArrowRight, Play, Pause } from 'lucide-react';
+import React from 'react';
+import { Film, Sparkles, Heart, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 const imageModules = import.meta.glob('../picture/*.jpg', { eager: true });
-const cinematicSlides = Object.values(imageModules).map((mod, index) => ({
+const allPhotos = Object.values(imageModules).map((mod, index) => ({
+  id: index + 1,
   url: mod.default,
-  title: `Cinematic Memory #${index + 1}`,
-  subtitle: `Unforgettable moments shared with Tini ❤️`
+  title: `Memory #${index + 1}`
 }));
 
+// Split photos into 3 rows for the multi-row cinematic wall effect
+const row1 = allPhotos.slice(0, 4);
+const row2 = allPhotos.slice(4, 7);
+const row3 = allPhotos.slice(7, 10);
+
 export default function CinematicSlideshow({ onNext }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-
-  useEffect(() => {
-    let interval;
-    if (isPlaying && cinematicSlides.length > 0) {
-      interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % cinematicSlides.length);
-      }, 5000);
-    }
-    return () => clearInterval(interval);
-  }, [isPlaying]);
-
   const handleNext = () => {
     confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
     onNext();
   };
 
-  const slide = cinematicSlides[currentIndex] || {
-    url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1400&q=80',
-    title: 'Cinematic Chapter',
-    subtitle: 'Where every glance is a timeless memory.'
-  };
-
   return (
-    <div className="fixed inset-0 w-screen h-screen flex items-center justify-center p-4 bg-gradient-to-br from-pink-100 via-rose-200 to-purple-200 dark:from-slate-950 dark:via-purple-950 dark:to-slate-900 z-50 animate-fadeIn overflow-y-auto">
-      <div className="glass-card p-6 md:p-10 rounded-3xl shadow-2xl max-w-4xl w-full text-center relative my-auto">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-pill text-pink-500 text-xs font-bold uppercase tracking-widest mb-4 shadow-sm">
-          <Film className="w-3.5 h-3.5" /> Chapter 5: Cinematic Slideshow <Sparkles className="w-3.5 h-3.5" />
+    <div className="fixed inset-0 w-screen h-screen flex flex-col items-center justify-between p-4 md:p-8 bg-gradient-to-br from-pink-100 via-rose-200 to-purple-200 dark:from-slate-950 dark:via-purple-950 dark:to-slate-900 z-50 animate-fadeIn overflow-hidden">
+      
+      {/* Header */}
+      <div className="text-center z-10 pt-2">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-pill text-pink-500 text-xs font-bold uppercase tracking-widest mb-2 shadow-sm">
+          <Film className="w-3.5 h-3.5" /> Chapter 5: Cinematic Memory Wall <Sparkles className="w-3.5 h-3.5" />
         </div>
+        <h2 className="text-2xl md:text-3xl font-extrabold font-['Playfair_Display'] bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+          Tini's Moving Memories ✨
+        </h2>
+      </div>
 
-        <div className="relative h-72 sm:h-96 md:h-[400px] rounded-2xl overflow-hidden shadow-2xl mb-6 group bg-slate-950 flex items-center justify-center">
-          {/* Blurred backdrop of the same photo for a gorgeous cinematic fit */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center filter blur-2xl opacity-40 scale-110 pointer-events-none"
-            style={{ backgroundImage: `url(${slide.url})` }}
-          ></div>
+      {/* 3-Row Cinematic Wall Container */}
+      <div className="w-full max-w-6xl h-[55vh] md:h-[60vh] grid grid-cols-3 gap-3 md:gap-6 overflow-hidden relative px-2 my-auto">
+        {/* Gradient overlays for cinematic fade effect at top and bottom */}
+        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-pink-100 dark:from-slate-950 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-pink-100 dark:from-slate-950 to-transparent z-10 pointer-events-none"></div>
 
-          <img
-            src={slide.url}
-            alt={slide.title}
-            className="relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-1000 transform group-hover:scale-105 animate-fadeIn"
-          />
-
-          <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-10 text-white pointer-events-none">
-            <div className="flex items-center justify-center gap-2 text-pink-400 text-xs font-bold uppercase tracking-widest mb-2">
-              <Heart className="w-4 h-4 fill-pink-400" /> Scene {currentIndex + 1} of {cinematicSlides.length}
-            </div>
-            <h3 className="text-2xl md:text-3xl font-bold font-['Playfair_Display'] mb-1">
-              {slide.title}
-            </h3>
-            <p className="text-base md:text-xl text-slate-200 font-['Dancing_Script']">
-              {slide.subtitle}
-            </p>
+        {/* Row 1: Moves UP */}
+        <div className="relative overflow-hidden h-full rounded-2xl glass-card p-2">
+          <div className="flex flex-col gap-3 animate-scroll-up">
+            {[...row1, ...row1, ...row1].map((photo, idx) => (
+              <div key={idx} className="relative h-44 sm:h-56 rounded-xl overflow-hidden shadow-lg bg-slate-950 shrink-0 group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-40 scale-110 pointer-events-none"
+                  style={{ backgroundImage: `url(${photo.url})` }}
+                ></div>
+                <img src={photo.url} alt={photo.title} className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
           </div>
-
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md text-white flex items-center justify-center transition-all"
-          >
-            {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-          </button>
         </div>
 
-        <div className="flex justify-center gap-2 mb-6">
-          {cinematicSlides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentIndex(idx)}
-              className={`w-2.5 h-2.5 rounded-full transition-all ${
-                currentIndex === idx ? 'bg-pink-500 w-6' : 'bg-slate-400/50'
-              }`}
-            />
-          ))}
+        {/* Row 2: Moves DOWN */}
+        <div className="relative overflow-hidden h-full rounded-2xl glass-card p-2">
+          <div className="flex flex-col gap-3 animate-scroll-down">
+            {[...row2, ...row2, ...row2].map((photo, idx) => (
+              <div key={idx} className="relative h-44 sm:h-56 rounded-xl overflow-hidden shadow-lg bg-slate-950 shrink-0 group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-40 scale-110 pointer-events-none"
+                  style={{ backgroundImage: `url(${photo.url})` }}
+                ></div>
+                <img src={photo.url} alt={photo.title} className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="text-center">
-          <button
-            onClick={handleNext}
-            className="px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-base shadow-lg shadow-pink-500/30 transform hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
-          >
-            Continue to Friendship Stats <ArrowRight className="w-5 h-5" />
-          </button>
+        {/* Row 3: Moves UP */}
+        <div className="relative overflow-hidden h-full rounded-2xl glass-card p-2">
+          <div className="flex flex-col gap-3 animate-scroll-up" style={{ animationDuration: '28s' }}>
+            {[...row3, ...row3, ...row3].map((photo, idx) => (
+              <div key={idx} className="relative h-44 sm:h-56 rounded-xl overflow-hidden shadow-lg bg-slate-950 shrink-0 group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-40 scale-110 pointer-events-none"
+                  style={{ backgroundImage: `url(${photo.url})` }}
+                ></div>
+                <img src={photo.url} alt={photo.title} className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Footer / Continue Button */}
+      <div className="text-center z-10 pb-2">
+        <button
+          onClick={handleNext}
+          className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-base shadow-lg shadow-pink-500/30 transform hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
+        >
+          Continue to Friendship Stats <ArrowRight className="w-5 h-5" />
+        </button>
+      </div>
+
     </div>
   );
 }
