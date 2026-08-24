@@ -19,7 +19,7 @@ export default function FriendshipStats({ onNext }) {
           Our Epic Friendship Stats 📊
         </h2>
         <p className="text-slate-600 dark:text-slate-300 text-sm md:text-base font-['Dancing_Script'] text-2xl mb-8">
-          Proof that we survived each other for 22 years (and counting!) 😂
+          Proof that we survived each other for 21 years (and counting!) 😂
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">

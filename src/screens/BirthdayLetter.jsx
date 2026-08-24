@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Heart, Sparkles, ArrowRight, Quote } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function BirthdayLetter({ onNext }) {
   const fullText = `Dear Tini,
 
-Twenty-two years of memories, lessons, growth, smiles, and beautiful moments have brought you to this day.
+Twenty-one years of memories, lessons, growth, smiles, and beautiful moments have brought you to this day.
 
 May this new chapter bring you happiness, success, peace, and countless reasons to smile.
 
@@ -14,8 +14,6 @@ Thank you for being exactly who you are.
 Happy Birthday.
 
 — Tesfish ❤️`;
-
-  const [typedText, setTypedText] = useState(fullText); // Show full text immediately for maximum reliability
 
   const handleNext = () => {
     confetti({
@@ -44,7 +42,7 @@ Happy Birthday.
 
         <div className="min-h-[280px] p-6 md:p-8 rounded-2xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 shadow-inner mb-8">
           <p className="text-slate-800 dark:text-slate-200 text-lg md:text-2xl leading-relaxed whitespace-pre-wrap font-['Dancing_Script']">
-            {typedText}
+            {fullText}
           </p>
         </div>
 
