@@ -4,7 +4,7 @@ import { Film, ChevronLeft, ChevronRight, Play, Pause, Heart, Sparkles } from 'l
 const slides = [
   {
     url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80',
-    title: 'Chapter 1: The Beauty of 22',
+    title: 'Chapter 1: The Beauty of 21',
     subtitle: 'Every single day with you is a gorgeous celebration.'
   },
   {

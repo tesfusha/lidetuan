@@ -29,7 +29,7 @@ export default function BirthdayMessage() {
 
         <div className="space-y-6 text-slate-700 dark:text-slate-200 text-base md:text-xl leading-relaxed text-center font-['Dancing_Script'] md:px-8">
           <p className="text-2xl md:text-3xl text-pink-600 dark:text-pink-400 font-bold mb-4 font-['Pacifico']">
-            Twenty-two years of memories, lessons, growth, smiles, and beautiful moments have brought you to this day.
+            Twenty-one years of memories, lessons, growth, smiles, and beautiful moments have brought you to this day.
           </p>
           
           <p className="text-xl md:text-2xl">
