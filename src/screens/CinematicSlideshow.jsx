@@ -2,8 +2,8 @@ import React from 'react';
 import { Film, Sparkles, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-// Import all WebP images from src/picture/Webp dynamically
-const imageModules = import.meta.glob('../picture/Webp/*.webp', { eager: true });
+// Import all WebP images from src/picture dynamically
+const imageModules = import.meta.glob('../picture/*.webp', { eager: true });
 const allPhotos = Object.values(imageModules).map((mod, index) => ({
   id: index + 1,
   url: mod.default,

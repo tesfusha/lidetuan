@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Camera, Heart, Sparkles, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-const imageModules = import.meta.glob('../picture/*.jpg', { eager: true });
+const imageModules = import.meta.glob('../picture/*.webp', { eager: true });
 const albumPhotos = Object.values(imageModules).map((mod, index) => ({
   id: index + 1,
   url: mod.default,
