@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BD Wishes - Chapter Workflow Diagram</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .flow-line {
+      position: relative;
+    }
+    .flow-line::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -20px;
+      width: 20px;
+      height: 2px;
+      background: linear-gradient(90deg, #ec4899, #8b5cf6);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6 md:p-12">
+  <div class="max-w-6xl mx-auto space-y-10">
+    
+    <!-- Header -->
+    <div class="text-center space-y-3">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/10 text-pink-400 text-xs font-bold uppercase tracking-widest border border-pink-500/20">
+        ✨ Interactive System Workflow Map
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold font-['Playfair_Display'] bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400 bg-clip-text text-transparent">
+        Tini's 21st Birthday Wish App — Workflow
+      </h1>
+      <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
+        Complete 8-Chapter User Journey Flow & Subsystem Architecture
+      </p>
+    </div>
+
+    <!-- Chapter Grid Flow -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Step 1 -->
+      <div class="glass p-6 rounded-2xl border-l-4 border-l-pink-500 bg-slate-900/60 shadow-xl hover:scale-105 transition-all">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-pink-400 uppercase tracking-widest">Chapter 1</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-pink-500/20 text-pink-300">PASSCODE</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Password Screen</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">Secret pin protection & lock screen greeting.</p>
+        <div class="text-[11px] font-semibold text-slate-300 bg-slate-800/80 p-2 rounded-lg border border-slate-700">
+          ➡️ Trigger: Correct Password
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="glass p-6 rounded-2xl border-l-4 border-l-purple-500 bg-slate-900/60 shadow-xl hover:scale-105 transition-all">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Chapter 2</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-purple-500/20 text-purple-300">ANIMATION</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Age Journey</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">Animated counter from age 1 → 21 with confetti bursts.</p>
+        <div class="text-[11px] font-semibold text-slate-300 bg-slate-800/80 p-2 rounded-lg border border-slate-700">
+          ➡️ Trigger: Reaches 21 or Skip
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="glass p-6 rounded-2xl border-l-4 border-l-rose-500 bg-slate-900/60 shadow-xl hover:scale-105 transition-all">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-rose-400 uppercase tracking-widest">Chapter 3</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-500/20 text-rose-300">LETTER</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Birthday Letter</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">Heartfelt letter dedicated to Tini's 21st milestone.</p>
+        <div class="text-[11px] font-semibold text-slate-300 bg-slate-800/80 p-2 rounded-lg border border-slate-700">
+          ➡️ Trigger: "Open Memory Album"
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="glass p-6 rounded-2xl border-l-4 border-l-amber-500 bg-slate-900/60 shadow-xl hover:scale-105 transition-all">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Chapter 4</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-300">SCRAPBOOK</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Memory Album</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">Polaroid photo slideshow with backdrop blur.</p>
+        <div class="text-[11px] font-semibold text-slate-300 bg-slate-800/80 p-2 rounded-lg border border-slate-700">
+          ➡️ Trigger: "Continue Slideshow"
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="glass p-6 rounded-2xl border-l-4 border-l-sky-500 bg-slate-900/60 shadow-xl hover:scale-105 transition-all">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Chapter 5</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-sky-500/20 text-sky-300">CINEMATIC</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Cinematic Wall</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">3-row moving WebP photo marquee with GPU acceleration.</p>
+        <div class="text-[11px] font-semibold text-slate-300 bg-slate-800/80 p-2 rounded-lg border border-slate-700">
+          ➡️ Trigger: "Continue to Stats"
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="glass p-6 rounded-2xl border-l-4 border-l-emerald-500 bg-slate-900/60 shadow-xl hover:scale-105 transition-all">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Chapter 6</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300">STATS</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Friendship Stats</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">Fun metrics & hall of fame milestones (21 years).</p>
+        <div class="text-[11px] font-semibold text-slate-300 bg-slate-800/80 p-2 rounded-lg border border-slate-700">
+          ➡️ Trigger: "Leave a Memory"
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="glass p-6 rounded-2xl border-l-4 border-l-indigo-500 bg-slate-900/60 shadow-xl hover:scale-105 transition-all">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest">Chapter 7</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-500/20 text-indigo-300">TELEGRAM</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Leave a Memory</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">Visitor note submission delivered to Telegram Bot API.</p>
+        <div class="text-[11px] font-semibold text-slate-300 bg-slate-800/80 p-2 rounded-lg border border-slate-700">
+          ➡️ Trigger: Message Sent / Next
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <div class="glass p-6 rounded-2xl border-l-4 border-l-pink-400 bg-slate-900/60 shadow-xl hover:scale-105 transition-all">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-pink-300 uppercase tracking-widest">Chapter 8</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-pink-400/20 text-pink-200">FINALE</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Final Message</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">Emotional closing message & thank you screen.</p>
+        <div class="text-[11px] font-semibold text-slate-300 bg-slate-800/80 p-2 rounded-lg border border-slate-700">
+          🏁 Complete Experience
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Background Audio & Global Infrastructure -->
+    <div class="glass p-6 rounded-3xl bg-slate-900/40 border border-slate-800 text-center space-y-2">
+      <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider">🎵 Persistent Audio Subsystem</h4>
+      <p class="text-xs text-slate-400">
+        <code>MusicPlayer.jsx</code> runs persistently across all 8 chapters with play/pause controls, custom volume slider, and background song looping.
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>
