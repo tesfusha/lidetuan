@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Sparkles } from 'lucide-react';
+import { Moon, Sun, Sparkles, Trophy, Heart } from 'lucide-react';
+import confetti from 'canvas-confetti';
+import { playPopSound, playChimeSound } from './utils/sound';
 
 import PasswordScreen from './screens/PasswordScreen';
 import AgeJourney from './screens/AgeJourney';
@@ -15,6 +17,7 @@ export default function App() {
   const [currentScreen, setCurrentScreen] = useState(1);
   const [darkMode, setDarkMode] = useState(false);
   const [ultraGlass, setUltraGlass] = useState(false);
+  const [score, setScore] = useState(100);
 
   useEffect(() => {
     if (darkMode) {
@@ -33,11 +36,34 @@ export default function App() {
   }, [ultraGlass]);
 
   const nextScreen = () => {
+    playChimeSound();
+    confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+    setScore((prev) => prev + 150);
     setCurrentScreen((prev) => prev + 1);
   };
 
+  const handleBackgroundClick = (e) => {
+    // Only trigger if clicking background directly
+    if (e.target === e.currentTarget || e.target.classList.contains('balloon')) {
+      playPopSound();
+      confetti({
+        particleCount: 8,
+        spread: 50,
+        origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight }
+      });
+    }
+  };
+
+  const triggerAchievementBadge = () => {
+    playChimeSound();
+    confetti({ particleCount: 100, spread: 80, origin: { y: 0.5 } });
+  };
+
   return (
-    <div className="min-h-screen w-screen relative overflow-hidden bg-gradient-to-br from-pink-50 via-rose-100 to-purple-100 dark:from-slate-950 dark:via-purple-950 dark:to-slate-900 text-slate-800 dark:text-slate-100 font-['Plus_Jakarta_Sans',sans-serif]">
+    <div 
+      onClick={handleBackgroundClick}
+      className="min-h-screen w-screen relative overflow-hidden bg-gradient-to-br from-pink-50 via-rose-100 to-purple-100 dark:from-slate-950 dark:via-purple-950 dark:to-slate-900 text-slate-800 dark:text-slate-100 font-['Plus_Jakarta_Sans',sans-serif]"
+    >
       
       {/* Floating Balloons Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
@@ -48,6 +74,19 @@ export default function App() {
 
       {/* Music Player Widget */}
       <MusicPlayer />
+
+      {/* Gamified Achievement Badge (Top-Left) */}
+      <div className="fixed top-4 left-4 z-[100] hidden sm:block">
+        <button
+          onClick={triggerAchievementBadge}
+          className="px-4 py-2 rounded-full glass-card shadow-lg flex items-center gap-2 text-xs font-bold text-pink-600 dark:text-pink-300 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-pink-500/30"
+          title="Click to celebrate your score!"
+        >
+          <Trophy className="w-4 h-4 text-amber-500 animate-bounce" />
+          <span>VIP Score: {score} pts</span>
+          <Heart className="w-3.5 h-3.5 fill-pink-500 text-pink-500" />
+        </button>
+      </div>
 
       {/* Theme & Glassmorphism Toggles */}
       <div className="fixed bottom-6 right-6 z-[100] flex items-center gap-3">
